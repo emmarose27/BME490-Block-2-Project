@@ -67,7 +67,7 @@
 
 fiber_length = 2/100; %fiber length in meters
 dx = fiber_length/100; %space step in meters
-v0 = 0.0; u0 = 0.0;% resting potential 
+v0 = 0.0; u0 = 0.0;% resting potential
 % boundary conditions
 % d2v0_dx2 = (v(1)-v0)/(dx*dx);
 
