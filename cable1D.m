@@ -81,7 +81,16 @@ t = [1 100];
 
 y = [u0,v0]; % initial conditions
 %[dudt, dvdt] = odefun(1,[u,v]);
-[t, y] = ode45(odefun,[1 100],0);
+% [t, y] = ode45(odefun,[1 100],0);
+
+%% 
+[t y] = ode45(@(t,y) 2*t, t, 0);
+plot(t,y);
+
+
+
+
+%%
 % combine du/dt and dv/dt into one function that returns two values
 %from ode45 documentation: odefun would take in two arguments: the time and
 %the current values of u and v (as a vector) i.e. [t, [u, v]]
@@ -101,14 +110,16 @@ y = [u0,v0]; % initial conditions
 % returns the derivative of u(t) and derivative of v(t) at the points of u and v
 
 %so odefun takes t, [u, v] and returns [du/dt, dv/dt] b/c 
-function dydt = odefun(t,y)
-%     dudt = D1*d2u/dx2 + D2*d2u/dy2 + c1*u(u-a)*(1-u) - c2*u*v;
-%     dvdt = b*(u-v);
-    dydt = zeros(2,1);
-    dydt(1) = y(1)+2*y(2);
-    dydt(2) = 3*y(1)+2*y(2);
-end
 
+%%
+% function dydt = odefun(t,y)
+% %     dudt = D1*d2u/dx2 + D2*d2u/dy2 + c1*u(u-a)*(1-u) - c2*u*v;
+% %     dvdt = b*(u-v);
+%     dydt = zeros(2,1);
+%     dydt(1) = y(1)+2*y(2);
+%     dydt(2) = 3*y(1)+2*y(2);
+% end
+%%
 % Spacial Derivative
 
 % boundary condition: special diffusive term for 1st and last node
@@ -119,8 +130,8 @@ end
 %dx = 10.0; dy = 10.0;
 %[t,y] = ode45(odefun,[1,100],v0);
 
-% du/dt = D1*d2u/dx2 + D2*d2u/dy2 + c1*u(u-a)*(1-u) - c2*u*v
-% dv/dt = b*(u-v)
+du/dt = D1*d2u/dx2 + D2*d2u/dy2 + c1*u(u-a)*(1-u) - c2*u*v
+dv/dt = b*(u-v)
 %v0 = 0.0;
 % function d2vdx2 = odefun(t,y)
 %     d2vdx2 = (v(n+1)+v(n-1)-2*v(n))/(dx*dx);
