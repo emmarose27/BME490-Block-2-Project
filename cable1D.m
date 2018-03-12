@@ -36,6 +36,7 @@
 % physiologic values for CV and APD. Reasonable values are transverse 
 % conduction velocity (CV) ~= 0.2 m/sec and APD ~=200 ms.
 
+<<<<<<< HEAD
 %% Convergence Notes from Pollard
 
 % You want to fix the length of your cable (so that when dx is halved, you
@@ -56,10 +57,6 @@ x0(1) = v0;
 d2udx2(1) = (v1-v0)/(dx*dx);
 d2udx2(nodes) = d2udx2(1);
 
-% isotropic tissue: D1 and D2 = 1
-D1 = 1; D2 = 1;
-% constants
-a=0.13; b=0.013; c1=0.26; c2=0.1;
 % Solve 1st order ODE: https://www3.nd.edu/~nancy/Math20750/Demos/3dplots/dim3system.html
 % dudt = x(1)
 %dudt = D1 *d2udx2(1) +  c1*u(u-a)*(1-u) - c2*u*v;
@@ -93,4 +90,28 @@ end
 % plot 2nd deriv of V(t) over position
 position = 0:dx:nodes-1;
 figure;plot(position, d2udx2);title('d2u/dx2'); xlabel('position');
+
+
+
+
+%% Notes
+% combine du/dt and dv/dt into one function that returns two values
+%from ode45 documentation: odefun would take in two arguments: the time and
+%the current values of u and v (as a vector) i.e. [t, [u, v]]
+%then it would return [dudt, dvdt]
+
+% odefun takes two arguments: t and y. t is the current time. 
+% y is a vector [u, v] which is the current value of u and v. 
+% it returns some other vector, let's call it z. 
+% z has the values for du/dt and dv/dt
+% dydt = odefun(t,y)
+
+% ode45 tries to reverse engineer a function from just its derivative. 
+% in this case, it's two functions from two derivatives. 
+% odefun is the function(s) used to calculate the derivatives at specific times and points
+
+%so we need a function that takes time, a value of u, and a value of v, and
+% returns the derivative of u(t) and derivative of v(t) at the points of u and v
+
+%so odefun takes t, [u, v] and returns [du/dt, dv/dt] b/c 
 
